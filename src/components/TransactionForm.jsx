@@ -1,11 +1,14 @@
-import { useApp }                       from '../context/AppContext'
-import { S }                             from '../styles/theme'
-import { CATEGORIES_IN, CATEGORIES_OUT } from '../utils/categories'
+import { useApp }   from '../context/AppContext'
+import { S }        from '../styles/theme'
 
 export default function TransactionForm() {
   const { state, actions } = useApp()
   const f = state.txForm
-  const cats = f.kind === 'in' ? CATEGORIES_IN : CATEGORIES_OUT
+
+  // Catégories depuis Supabase
+  const cats = f.kind === 'in' 
+    ? state.categories.in 
+    : state.categories.out
 
   const add = async () => {
     try { await actions.submitTransaction() }

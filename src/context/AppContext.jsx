@@ -1,11 +1,13 @@
 import { createContext, useContext, useReducer, useEffect } from 'react'
 import { getUsers, getTransactions, addUser, deleteUser, addTransaction, deleteTransaction } from '../hooks/api'
 import { CATEGORIES_IN, CATEGORIES_OUT } from '../utils/categories'
+import { getUsers, getTransactions, addUser, deleteUser, addTransaction, deleteTransaction, getCategories } from '../hooks/api'
 
 const initialState = {
   loaded: false, loadError: null, users: [], transactions: [],
   currentUser: null, view: 'dashboard', loginError: '', filterDate: 'today',
   txForm: { kind: 'in', category: CATEGORIES_IN[0], description: '', amount: '' },
+  categories: { in: [], out: [] },  // ← ajoute cette ligne
   newUser: { username: '', password: '', role: 'caissiere', name: '' },
   userError: '', txLoading: false,
 }
@@ -27,6 +29,7 @@ function reducer(state, action) {
     case 'USER_ADDED':  return { ...state, users: [...state.users, action.user], newUser: { username: '', password: '', role: 'caissiere', name: '' }, userError: '' }
     case 'USER_ERROR':  return { ...state, userError: action.msg }
     case 'USER_DELETED':return { ...state, users: state.users.filter(u => u.id !== action.id) }
+    case 'CATEGORIES':  return { ...state, categories: action.categories }
     default: return state
   }
 }
@@ -39,9 +42,14 @@ export function AppProvider({ children }) {
   useEffect(() => {
     async function load() {
   try {
-    const [users, transactions] = await Promise.all([getUsers(), getTransactions()])
-    console.log('Utilisateurs chargés:', users)  // ← ajoute cette ligne
+    const [users, transactions, categories] = await Promise.all([
+      getUsers(), 
+      getTransactions(),
+      getCategories(),  // ← ajoute
+    ])
+    console.log('Utilisateurs chargés:', users)
     dispatch({ type: 'LOADED', users, transactions })
+    dispatch({ type: 'CATEGORIES', categories })  // ← ajoute
   } catch (e) {
     console.error(e)
     dispatch({ type: 'LOAD_ERROR', msg: 'Impossible de se connecter à la base de données.' })

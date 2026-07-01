@@ -51,6 +51,7 @@ export async function getTransactions() {
   }))
 }
 
+
 export async function addTransaction({ kind, amount, description, category, by, userId }) {
   const { data, error } = await supabase
     .from('transactions')
@@ -73,6 +74,18 @@ export async function addTransaction({ kind, amount, description, category, by, 
     category:    data.categorie,
     by:          data.saisi_par,
     date:        data.date,
+  }
+}
+
+export async function getCategories() {
+  const { data, error } = await supabase
+    .from('categories')
+    .select('*')
+    .order('libelle', { ascending: true })
+  if (error) throw error
+  return {
+    in:  (data || []).filter(c => c.type === 'in').map(c => c.libelle),
+    out: (data || []).filter(c => c.type === 'out').map(c => c.libelle),
   }
 }
 
