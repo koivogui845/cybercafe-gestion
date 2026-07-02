@@ -1,6 +1,4 @@
 import { createContext, useContext, useReducer, useEffect } from 'react'
-import { getUsers, getTransactions, addUser, deleteUser, addTransaction, deleteTransaction } from '../hooks/api'
-import { CATEGORIES_IN, CATEGORIES_OUT } from '../utils/categories'
 import { getUsers, getTransactions, addUser, deleteUser, addTransaction, deleteTransaction, getCategories } from '../hooks/api'
 
 const initialState = {
