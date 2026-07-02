@@ -13,6 +13,8 @@ export default function Login() {
   return (
     <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:`radial-gradient(circle at 20% 30%, rgba(199,154,63,0.12), transparent 40%), ${C.paper}` }}>
       <div style={{ ...S.card, width:360, padding:'38px 36px' }}>
+        <div style={{ fontSize:11, textTransform:'uppercase', letterSpacing:3, color:C.terracotta, fontWeight:700 }}>N@ur Gr@up</div>
+        <h1 style={{ margin:'4px 0 2px', fontSize:26, fontFamily:'Georgia, serif' }}>Gestion Caisse</h1>
         <p style={{ margin:'0 0 22px', color:C.inkMuted, fontSize:13 }}>Connectez-vous pour accéder à votre espace.</p>
         <label style={S.label}>Identifiant</label>
         <input style={S.input} value={usr} onChange={e=>setUsr(e.target.value)} onKeyDown={e=>e.key==='Enter'&&actions.login(usr,pwd)} autoComplete="username"/>
