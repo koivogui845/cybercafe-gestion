@@ -4,7 +4,7 @@ import { getUsers, getTransactions, addUser, deleteUser, addTransaction, deleteT
 const initialState = {
   loaded: false, loadError: null, users: [], transactions: [],
   currentUser: null, view: 'dashboard', loginError: '', filterDate: 'today',
-  txForm: { kind: 'in', category: CATEGORIES_IN[0], description: '', amount: '' },
+  txForm: { kind: 'in', category: '', description: '', amount: '' },
   categories: { in: [], out: [] },  // ← ajoute cette ligne
   newUser: { username: '', password: '', role: 'caissiere', name: '' },
   userError: '', txLoading: false,
