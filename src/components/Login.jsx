@@ -22,9 +22,6 @@ export default function Login() {
         <input style={S.input} type="password" value={pwd} onChange={e=>setPwd(e.target.value)} onKeyDown={e=>e.key==='Enter'&&actions.login(usr,pwd)} autoComplete="current-password"/>
         {state.loginError && <div style={{ color:C.red, fontSize:13, marginTop:10 }}>{state.loginError}</div>}
         <button onClick={()=>actions.login(usr,pwd)} style={S.btnPrimary}>Se connecter</button>
-        <div style={{ marginTop:18, fontSize:12, color:'#9a8c78', textAlign:'center', lineHeight:1.7 }}>
-          Comptes démo : boss/boss123 · admin/admin123 · caisse/caisse123
-        </div>
       </div>
     </div>
   )
