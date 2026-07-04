@@ -6,9 +6,8 @@ export default function TransactionForm() {
   const f = state.txForm
 
   // Catégories depuis Supabase
-  const cats = f.kind === 'in' 
-    ? state.categories.in 
-    : state.categories.out
+  const cats = [...state.categories.in, ...state.categories.out]
+  .filter((v, i, a) => a.indexOf(v) === i) // supprime les doublons
 
   const add = async () => {
     try { await actions.submitTransaction() }
